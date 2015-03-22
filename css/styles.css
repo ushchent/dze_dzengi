@@ -1,5 +1,6 @@
 div#header,
-div#chartArea {
+div#chartArea,
+div#logo {
     width: 1300px;
     }
 .chart {
@@ -13,4 +14,11 @@ div#chartArea {
     }
 h1 {
     text-align: center;
+    }
+#logo img {
+    position: relative; 
+    top: 15px;
+    left: 620px;
+    width: 61px;
+    height: 75px;
     }
