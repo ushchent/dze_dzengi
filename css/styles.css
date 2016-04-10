@@ -1,0 +1,38 @@
+main h1 {
+    margin-bottom: 5px;
+}
+#caption {
+    margin: 0 auto;
+    padding: 0;
+}
+header, footer {
+    background-color: #2a2f4e;
+}
+
+header p {
+    float: right;
+    padding-right: 10em;
+}
+header a {
+    text-decoration: none;
+    color: white;
+}
+main {
+    margin: 0 10em 0 60px;
+}
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+footer {
+    height: 3em;
+}
+footer p {
+	padding: 1em;
+    color: white;
+}
+footer a {
+
+    color: white;
+}
