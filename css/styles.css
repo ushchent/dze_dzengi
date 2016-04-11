@@ -8,31 +8,22 @@ main h1 {
 header, footer {
     background-color: #2a2f4e;
 }
-
-header p {
-    float: right;
-    padding-right: 10em;
-}
-header a {
-    text-decoration: none;
-    color: white;
-}
 main {
-    margin: 0 10em 0 60px;
+    margin: 0 auto 0 60px;
 }
 body {
     margin: 0;
     font-family: sans-serif;
 }
-
-footer {
-    height: 3em;
-}
 footer p {
-	padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 60px;
+
     color: white;
+    margin: 0 auto;
 }
 footer a {
-
     color: white;
+    margin: 0 auto;
 }
