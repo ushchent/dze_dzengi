@@ -27,3 +27,12 @@ footer a {
     color: white;
     margin: 0 auto;
 }
+table, table caption {
+	width: 40%;
+	text-align: left;
+	border-collapse: collapse;
+	margin-bottom: 1em;
+}
+table td {
+    padding: 5px;
+    }

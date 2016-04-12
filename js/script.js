@@ -39,7 +39,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(bsguRevenue[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .8
+            opacity: .8,
+            title: bsguRevenue[0].amount,
     });
     bsgu.append("rect")
         .attr({
@@ -48,7 +49,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(bsguRevenue[1].amount),
             height: 30,
             fill: "#2A2F4E",
-            opacity: .9
+            opacity: .9,
+            title: bsguRevenue[1].amount
     })
         .append("text")
         .attr({
@@ -82,7 +84,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(bsguSpending[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .7 
+            opacity: .7,
+            title: bsguSpending[0].amount
     });
     bsgu.append("rect")
         .attr({
@@ -91,7 +94,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(bsguSpending[1].amount),
             height: 30,
             fill: "#2A2F4E",
-            opacity: .9
+            opacity: .9,
+            title: bsguSpending[1].amount
     });
     bsgu.append("rect")
         .attr({
@@ -100,7 +104,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(379000),
             height: 20,
             fill: "black",
-            opacity: .6
+            opacity: .6,
+            title: "379000"
     });
     
 // Республиканский
@@ -112,7 +117,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(respRevenue[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .8
+            opacity: .8,
+            title: respRevenue[0].amount
     });
     resp.append("rect")
         .attr({
@@ -121,7 +127,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(respRevenue[1].amount),
             height: 30,
             fill: "#2A2F4E",
-            opacity: .9
+            opacity: .9,
+            title: respRevenue[1].amount
     });
     resp.append("text")
         .attr({
@@ -148,7 +155,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(respSpending[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .7 
+            opacity: .7,
+            title: respSpending[0].amoun
     });
     resp.append("rect")
         .attr({
@@ -157,7 +165,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(respSpending[1].amount),
             height: 30,
             fill: "#2A2F4E",
-            opacity: .9
+            opacity: .9,
+            title: respSpending[1].amount
     });
     //resp.append("rect")
         //.attr({
@@ -178,7 +187,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(fsznRevenue[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .8
+            opacity: .8,
+            title: fsznRevenue[0].amount
     });
     fszn.append("rect")
         .attr({
@@ -187,7 +197,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(fsznRevenue[1].amount),
             height: 30,
             fill: "#2A2F4E",
-            opacity: .9
+            opacity: .9,
+            title: fsznRevenue[1].amount
     });
     fszn.append("text")
         .attr({
@@ -214,7 +225,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             width: xScale(fsznSpending[0].amount),
             height: 30,
             fill: "#F46A60",
-            opacity: .7 
+            opacity: .7,
+            title: fsznSpending[0].amount
     });
     //fszn.append("rect")
         //.attr({
