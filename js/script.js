@@ -40,7 +40,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .8,
-            title: bsguRevenue[0].amount,
+            title: "План: " + bsguRevenue[0].amount,
     });
     bsgu.append("rect")
         .attr({
@@ -50,15 +50,8 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#2A2F4E",
             opacity: .9,
-            title: bsguRevenue[1].amount
+            title: "Исполнено: " + bsguRevenue[1].amount
     })
-        .append("text")
-        .attr({
-            x: 110,
-            y: 15
-    })
-
-        .text(bsguRevenue[1].amount);
     bsgu.append("text")
         .attr({
             x: 0,
@@ -85,7 +78,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .7,
-            title: bsguSpending[0].amount
+            title: "План: " + bsguSpending[0].amount
     });
     bsgu.append("rect")
         .attr({
@@ -95,7 +88,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#2A2F4E",
             opacity: .9,
-            title: bsguSpending[1].amount
+            title: "Исполнено: " + bsguSpending[1].amount
     });
     bsgu.append("rect")
         .attr({
@@ -118,7 +111,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .8,
-            title: respRevenue[0].amount
+            title: "План: " + respRevenue[0].amount
     });
     resp.append("rect")
         .attr({
@@ -128,7 +121,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#2A2F4E",
             opacity: .9,
-            title: respRevenue[1].amount
+            title: "Исполнено: " + respRevenue[1].amount
     });
     resp.append("text")
         .attr({
@@ -156,7 +149,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .7,
-            title: respSpending[0].amoun
+            title: "План: " + respSpending[0].amoun
     });
     resp.append("rect")
         .attr({
@@ -166,7 +159,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#2A2F4E",
             opacity: .9,
-            title: respSpending[1].amount
+            title: "Исполнено: " + respSpending[1].amount
     });
     //resp.append("rect")
         //.attr({
@@ -188,7 +181,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .8,
-            title: fsznRevenue[0].amount
+            title: "План: " + fsznRevenue[0].amount
     });
     fszn.append("rect")
         .attr({
@@ -198,7 +191,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#2A2F4E",
             opacity: .9,
-            title: fsznRevenue[1].amount
+            title: "Исполнено: " + fsznRevenue[1].amount
     });
     fszn.append("text")
         .attr({
@@ -226,7 +219,7 @@ var fsznSpending = data.filter(function(d) { return d.title == "ФСЗН" && d.t
             height: 30,
             fill: "#F46A60",
             opacity: .7,
-            title: fsznSpending[0].amount
+            title: "План: " + fsznSpending[0].amount
     });
     //fszn.append("rect")
         //.attr({
