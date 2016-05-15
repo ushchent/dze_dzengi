@@ -48,7 +48,7 @@ d3.json("data/data.json", function(data) {
     var bsgu_spent_data = data.filter(function(d) { return d.type == "Всего" && d.title == "Всего расходов"; });
     var resp_rev_data = data.filter(function(d) { return d.type == "Республиканский" && d.title == "Всего доходов"; });
     var resp_spent_data = data.filter(function(d) { return d.type == "Республиканский" && d.title == "Всего расходов"; });
-    
+        
     xScale.domain([0, d3.max(data, function(d) { return d.amount})]);
 
 // БСГУ
@@ -205,7 +205,6 @@ request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 200) {
               
               var data = JSON.parse(request.responseText);
-              jsonData = data;
               
               if (document.getElementById("output_table")) {
                   document.getElementById("output_table").remove();
@@ -237,11 +236,37 @@ request.onreadystatechange = function() {
             table_head.appendChild(head_row);
             output_table.appendChild(table_head);
             target.appendChild(output_table);
-              var final_row;
+
               var table_body = document.createElement("tbody");
               for (var i = 0; i < data.length; i++) {
 
                 var body_row = document.createElement("tr");
+                
+                //var link = document.createElement("a");
+                //link.setAttribute("href", data[i].id);
+                //var link_text = document.createTextNode(data[i].region);
+                //link.appendChild(link_text);
+                
+                //var plan = document.createTextNode(data[i].plan);
+                //var changed = document.createTextNode(data[i].changed);
+                //var percent = document.createTextNode(data[i].percent);
+                
+                
+                //var tempArr = [];
+                //tempArr.push(link, plan, changed, percent);
+                //var keys = Object.keys(data[0]);
+
+                //for (var b = 0; b < tempArr.length; b++) {
+                    //var td = document.createElement("td");
+                    //td.appendChild(tempArr[b]);
+                    //body_row.appendChild(td);
+                //}
+                //table_body.appendChild(body_row)
+
+
+
+                
+                
                 var keys = Object.keys(data[0]);
 
                 for (var b = 0; b < keys.length; b++) {

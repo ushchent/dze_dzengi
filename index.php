@@ -1,13 +1,13 @@
 <?php
 	$db = new SQLite3("data/budgety.sqlite");
 
-$sql_popravki_total_count = 'SELECT count(*) as count from popravki_o where status != "П";';
+$sql_popravki_total_count = 'SELECT count(*) as count from popravki where status != "П";';
 
 	$sql_total_plan_data = 'select title, sum(amount) as plan, function_id  from raskhody_f inner join functions on functions.function = raskhody_f.title where status = "П" and code_2 = 0 group by title;';
 	
 	
-	$sql_total_popravki = "select distinct subject, status from popravki_o group by subject order by status;";
-	$sql_region_names = 'select distinct region, region_id from raskhody_f inner join regions on raskhody_f.region = regions.region_name;';
+	$sql_total_popravki = "select distinct subject, status from popravki group by subject order by status;";
+	$sql_region_names = 'select distinct area_title as title, id from raskhody_f inner join area_titles on raskhody_f.region = area_titles.area_title;';
 	$sql_function_names = 'select distinct title, function_id from raskhody_f inner join functions on raskhody_f.title = functions.function;';
 	
 	
@@ -117,13 +117,18 @@ usort($result_set, "sort_table");
     </header>
     <main>
         <h1>Бюджетное обозрение Республики Беларусь</h1>
-        <p id="caption">Гражданский мониторинг государственных финансов</p>
+        <section id="caption">
+        <p>Гражданский мониторинг государственных финансов <sup>январь-март 2016</sup></p>
+        
+        </section>
         <h2>Бюджет сектора государственного управления</h2>
         <div id="bsgu_rev">
         </div>
         <div id="bsgu_spent">
         </div> 
-         <h3>Республиканский бюджет</h3>
+        <div id="bsgu_dolg">
+        </div> 
+          <h3>Республиканский бюджет</h3>
         <div id="resp_rev">
         </div> 
         <div id="resp_spent">
@@ -139,7 +144,7 @@ usort($result_set, "sort_table");
 
 
 	while ($row = $region_names->fetchArray()) {
-		echo "<option value=" . $row['region_id'] . ">" . $row['region'] . "</option>";
+		echo "<option value=" . $row['id'] . ">" . $row['title'] . "</option>";
 	}
 echo "</select>";
 

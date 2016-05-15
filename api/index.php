@@ -74,15 +74,16 @@ echo json_encode($output);
     
 } else if ($region != "default" and $function == "default") {
 	// Вывод по указанному региону для всех видов расходов
-	$sql_region_plan = 'select region, title, amount as plan from raskhody_f inner join regions on regions.region_name = raskhody_f.region where region_id = ' . $region . ' and status = "П" and code_2 = 0;';
-	
+	$sql_region_plan = 'select region, title, amount as plan from raskhody_f inner join area_titles on area_titles.area_title = raskhody_f.region where id = ' . $region . ' and status = "П" and code_2 = 0;';
 
-	$sql_region_last_popravka = 'select distinct subject, status from popravki_o inner join regions on regions.region_name = popravki_o.region where region_id = ' . $region . ' group by subject order by status;';
+	$sql_region_last_popravka = 'select distinct subject, status from popravki inner join area_titles on area_titles.area_title = popravki.region where id = ' . $region . ' group by subject order by status;';
 	
 	$region_last_popravka = $db->query($sql_region_last_popravka);
 	$popravka = $region_last_popravka->fetchArray()['status'];
+    
 
-	$sql_region_changed = 'select title, amount as changed from raskhody_f inner join regions on regions.region_name = raskhody_f.region where region_id = ' . $region . ' and status = "' . $popravka . '" and code_2 = 0;';
+
+	$sql_region_changed = 'select title, amount as changed from raskhody_f inner join area_titles on area_titles.area_title = raskhody_f.region where id = ' . $region . ' and status = "' . $popravka . '" and code_2 = 0;';
 	
 	
 
@@ -107,6 +108,7 @@ echo json_encode($output);
 		array_push($region_changed_set, $temp_arr); 
 	}
 
+
 	for ($i = 0; $i < count($result_set); $i++) {
 		for ($b = 0; $b < count($region_changed_set); $b++) {
 			if ($result_set[$i]['title'] == $region_changed_set[$b]['title']) {
@@ -117,6 +119,7 @@ echo json_encode($output);
 			}
 		}
 	}
+    
 usort($result_set, "sort_table");
 
 $output = move_total($result_set);
@@ -181,7 +184,7 @@ usort($function_set, "sort_table");
 echo json_encode($function_set);
 
 } else if ($region == "default" and $function != "default") {
-$sql_function_plan = 'select region, amount as plan, function_id  from raskhody_f inner join functions on functions.function = raskhody_f.title where function_id = ' . $function . ' and status = "П" and code_2 = 0;';
+$sql_function_plan = 'select region, amount as plan, function_id, id  from raskhody_f inner join functions on functions.function = raskhody_f.title inner join area_titles on area_titles.area_title = raskhody_f.region where function_id = ' . $function . ' and status = "П" and code_2 = 0;';
 
 	$sql_function_title = 'select function from functions where function_id = ' . $function . ';';
 
@@ -206,6 +209,7 @@ $sql_function_plan = 'select region, amount as plan, function_id  from raskhody_
 	while($row = $function_plan_data->fetchArray(SQLITE3_ASSOC)) {
 		$row_array['region'] = $row["region"];
 		$row_array['plan'] = $row["plan"];
+        //$row_array['id'] = $row['id'];
 		array_push($function_set, $row_array);
 	}
 
