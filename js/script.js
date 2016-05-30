@@ -43,11 +43,26 @@ var resp_spent = d3.select("#resp_spent")
                 height: 40
             });
 
+var loc_rev = d3.select("#loc_rev")
+            .append("svg")
+            .attr({
+                width: 800,
+                height: 40
+            });
+var loc_spent = d3.select("#loc_spent")
+            .append("svg")
+            .attr({
+                width: 800,
+                height: 40
+            });
+
 d3.json("data/data.json", function(data) {
     var bsgu_rev_data = data.filter(function(d) { return d.type == "Всего" && d.title == "Всего доходов"; });
     var bsgu_spent_data = data.filter(function(d) { return d.type == "Всего" && d.title == "Всего расходов"; });
     var resp_rev_data = data.filter(function(d) { return d.type == "Республиканский" && d.title == "Всего доходов"; });
     var resp_spent_data = data.filter(function(d) { return d.type == "Республиканский" && d.title == "Всего расходов"; });
+    var loc_rev_data = data.filter(function(d) { return d.type == "Местные бюджеты" && d.title == "Всего доходов"; });
+    var loc_spent_data = data.filter(function(d) { return d.type == "Местные бюджеты" && d.title == "Всего расходов"; });
         
     xScale.domain([0, d3.max(data, function(d) { return d.amount})]);
 
@@ -182,8 +197,78 @@ resp_spent.selectAll("text")
             y: 25
             })
         .text("Расходы");
+
+
+// Местные бюджеты
+
+loc_rev.selectAll("rect")
+        .data(loc_rev_data)
+        .enter()
+        .append("rect")
+        .attr({
+            x: 80,
+            y: 0,
+            width: function(d) { return xScale(d.amount); },
+            height: 40,
+            fill: function(d) { return (d.status == "УП") ?  "#F46A60" : "#2A2F4E"; },
         });
-        
+
+loc_rev.selectAll("text")
+    .data(loc_rev_data)
+    .enter()
+    .append("text")
+    .attr({
+        x: function(d) { return (d.status == "УП") ?  (xScale(d.amount) - 50) : 85; },
+        y: 25,
+        fill: "white",
+        "font-size": function(d) { return (d.status == "Исполнено") ?  "9px" : "14px"; },
+        opacity: .9
+    })
+    .text(function(d) { return (d.status == "УП") ? "План: " +
+    addCommas(d.amount) : addCommas(d.amount); });
+
+    loc_spent.selectAll("rect")
+        .data(loc_spent_data)
+        .enter()
+        .append("rect")
+        .attr({
+            x: 80,
+            y: 0,
+            width: function(d) { return xScale(d.amount); },
+            height: 40,
+            fill: function(d) { return (d.status == "УП") ?  "#F46A60" : "#2A2F4E"; },
+        });
+
+loc_spent.selectAll("text")
+    .data(loc_spent_data)
+    .enter()
+    .append("text")
+    .attr({
+        x: function(d) { return (d.status == "УП") ?  (xScale(d.amount) - 50) : 85; },
+        y: 25,
+        fill: "white",
+        "font-size": function(d) { return (d.status == "Исполнено") ?  "9px" : "14px"; },
+        opacity: .9
+    })
+    .text(function(d) { return (d.status == "УП") ? "План: " +
+    addCommas(d.amount) : addCommas(d.amount); });
+
+    loc_rev.append("text")
+        .attr({
+            x: 0,
+            y: 25
+            })
+        .text("Доходы");
+
+    loc_spent.append("text")
+        .attr({
+            x: 0,
+            y: 25
+            })
+        .text("Расходы");
+        });
+
+
 // Работа с селекторами меню
 
 function call_selected() {
@@ -239,33 +324,32 @@ request.onreadystatechange = function() {
 
               var table_body = document.createElement("tbody");
               for (var i = 0; i < data.length; i++) {
+				  if (data[i].id) {
+
+					
+					var body_row = document.createElement("tr");
+					
+					var link = document.createElement("a");
+					link.setAttribute("href", "/data.php?id=" + data[i].id);
+					var link_text = document.createTextNode(data[i].region);
+					link.appendChild(link_text);
+					var plan = document.createTextNode(data[i].plan);
+					var changed = document.createTextNode(data[i].changed);
+					var percent = document.createTextNode(data[i].percent);
+					
+					var tempArr = [];
+					tempArr.push(link, plan, changed, percent);
+
+                for (var b = 0; b < tempArr.length; b++) {
+                    var td = document.createElement("td");
+                    td.appendChild(tempArr[b]);
+                    body_row.appendChild(td);
+                }
+                table_body.appendChild(body_row);
+					
+				  } else {
 
                 var body_row = document.createElement("tr");
-                
-                //var link = document.createElement("a");
-                //link.setAttribute("href", data[i].id);
-                //var link_text = document.createTextNode(data[i].region);
-                //link.appendChild(link_text);
-                
-                //var plan = document.createTextNode(data[i].plan);
-                //var changed = document.createTextNode(data[i].changed);
-                //var percent = document.createTextNode(data[i].percent);
-                
-                
-                //var tempArr = [];
-                //tempArr.push(link, plan, changed, percent);
-                //var keys = Object.keys(data[0]);
-
-                //for (var b = 0; b < tempArr.length; b++) {
-                    //var td = document.createElement("td");
-                    //td.appendChild(tempArr[b]);
-                    //body_row.appendChild(td);
-                //}
-                //table_body.appendChild(body_row)
-
-
-
-                
                 
                 var keys = Object.keys(data[0]);
 
@@ -280,6 +364,7 @@ request.onreadystatechange = function() {
                     body_row.appendChild(row_cell);
                 }
                 table_body.appendChild(body_row);
+			}
               }
 
                 table_body.appendChild(body_row);
@@ -294,7 +379,7 @@ request.onreadystatechange = function() {
     };
 
 var menu_oblast = document.getElementById("menu").getElementsByTagName("select");
-//console.log(menu_oblast);
+
 for (var i = 0; i < menu_oblast.length; i++) {
     menu_oblast[i].onchange = call_selected;
     };

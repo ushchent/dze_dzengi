@@ -85,7 +85,9 @@ usort($result_set, "sort_table");
         Беларусь. Гражданский мониторинг государственных финансов. ">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
 <!-- Yandex.Metrika counter -->
+
 <script type="text/javascript">
+	if (document.location.hostname != "localhost") {
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
@@ -93,21 +95,28 @@ usort($result_set, "sort_table");
                     id:30802536,
                     clickmap:true,
                     trackLinks:true,
-                    accurateTrackBounce:true
+                    accurateTrackBounce:true,
+                    webvisor:true
                 });
             } catch(e) { }
         });
+
         var n = d.getElementsByTagName("script")[0],
             s = d.createElement("script"),
             f = function () { n.parentNode.insertBefore(s, n); };
         s.type = "text/javascript";
         s.async = true;
         s.src = "https://mc.yandex.ru/metrika/watch.js";
+
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
+} else {
+	console.log("You're on localhost.");
+}
 </script>
+
 <noscript><div><img src="https://mc.yandex.ru/watch/30802536" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
     </head>
@@ -127,14 +136,18 @@ usort($result_set, "sort_table");
         <div id="bsgu_spent">
         </div> 
         <div id="bsgu_dolg">
-        </div> 
+        </div>
           <h3>Республиканский бюджет</h3>
         <div id="resp_rev">
         </div> 
         <div id="resp_spent">
         </div> 
         <h3>Местные бюджеты</h3>
-        <p>Расходы областных бюджетов (тыс. рублей):</p>
+        <div id="loc_rev">
+        </div> 
+        <div id="loc_spent">
+        </div> 
+        <p>Расходы областных бюджетов в 2016 году (тыс. рублей):</p>
         <div id="menu">
 
 <?php
@@ -198,8 +211,7 @@ echo "</tbody></table>";
 -->
    </main>
     <footer>
-        <p>Сделано в dataШколе сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>".<br>
-        Испытательная версия.</p>
+        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016. Сделано в dataШколе сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
     </footer>
         <script src="js/d3.v3.min.js" charset="utf-8"></script>
         <script src="js/script.js"></script>

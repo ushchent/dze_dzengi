@@ -131,7 +131,9 @@ echo json_encode($output);
 	
 	// Определяем функцию
 
-	$sql_function_plan = 'select region, amount as plan, function_id  from raskhody_f inner join functions on functions.function = raskhody_f.title where function_id = ' . $function . ' and status = "П" and code_2 = 0;';
+// Проверь логику
+
+	$sql_function_plan = 'select region, id, amount as plan, function_id  from raskhody_f inner join functions on functions.function = raskhody_f.title inner join area_titles on area_titles.area_title = raskhody_f.region where function_id = ' . $function . ' and status = "П" and code_2 = 0;';
 
 	$sql_function_title = 'select function from functions where function_id = ' . $function . ';';
 
@@ -156,6 +158,7 @@ echo json_encode($output);
 	while($row = $function_plan_data->fetchArray(SQLITE3_ASSOC)) {
 		$row_array['region'] = $row["region"];
 		$row_array['plan'] = $row["plan"];
+        $row_array['id'] = $row['id'];
 		array_push($function_set, $row_array);
 	}
 
@@ -209,7 +212,7 @@ $sql_function_plan = 'select region, amount as plan, function_id, id  from raskh
 	while($row = $function_plan_data->fetchArray(SQLITE3_ASSOC)) {
 		$row_array['region'] = $row["region"];
 		$row_array['plan'] = $row["plan"];
-        //$row_array['id'] = $row['id'];
+        $row_array['id'] = $row['id'];
 		array_push($function_set, $row_array);
 	}
 
