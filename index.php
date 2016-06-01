@@ -137,7 +137,7 @@ usort($result_set, "sort_table");
         </div> 
         <div id="bsgu_dolg">
         </div>
-          <h3>Республиканский бюджет</h3>
+          <h3><a href="/data.php?id=2">Республиканский бюджет</a></h3>
         <div id="resp_rev">
         </div> 
         <div id="resp_spent">
@@ -211,7 +211,7 @@ echo "</tbody></table>";
 -->
    </main>
     <footer>
-        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016. Сделано в dataШколе сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
+        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016 dataШкола сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
     </footer>
         <script src="js/d3.v3.min.js" charset="utf-8"></script>
         <script src="js/script.js"></script>

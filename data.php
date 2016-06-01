@@ -4,6 +4,8 @@
             };
     
     $db = new SQLite3("data/budgety.sqlite");
+
+    $sql_check = "select count(*) as count from area_titles where id = $id;";
     
     $sql_get_title = "select area_title as title from area_titles where id = $id;";
     $sql_get_population = "select amount from population where area_id = $id order by year desc;";
@@ -13,15 +15,16 @@
     // Запросы к текстовой таблице minsk. Замени потом на правильную.
     $sql_all = "select function as function_title, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where (status = 'П' or status = 'О') and Code_2 = 0 and area_id = $id order by year;";
     //$sql_all_otchety = 'select area_title, function, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where status = "О" and Code_2 = 0 and area_id = $id order by year;';
-    
+
+    $check = $db->query($sql_check);
     $title = $db->query($sql_get_title);
-    $population = $db->query($sql_get_population);
+    //$population = $db->query($sql_get_population);
     $popravki_count = $db->query($sql_popravki_count);
-    $zaniato = $db->query($sql_zaniato);
+    //$zaniato = $db->query($sql_zaniato);
     
-    $pop_count = $population->fetchArray(SQLITE3_ASSOC)['amount'];
-    $zaniato_count = $zaniato->fetchArray(SQLITE3_ASSOC)['amount'];
-    $zaniato_percent = $zaniato_count / $pop_count * 100;
+    //$pop_count = $population->fetchArray(SQLITE3_ASSOC)['amount'];
+    //$zaniato_count = $zaniato->fetchArray(SQLITE3_ASSOC)['amount'];
+    //$zaniato_percent = $zaniato_count / $pop_count * 100;
     
     $all = $db->query($sql_all);
 
@@ -41,7 +44,9 @@ function sort_data($a, $b) {
         Беларусь. Гражданский мониторинг государственных финансов. ">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
 <!-- Yandex.Metrika counter -->
+
 <script type="text/javascript">
+	if (document.location.hostname != "localhost") {
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
@@ -66,7 +71,11 @@ function sort_data($a, $b) {
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
+} else {
+	console.log("You're on localhost.");
+}
 </script>
+
 <noscript><div><img src="https://mc.yandex.ru/watch/30802536" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
     </head>
@@ -80,6 +89,10 @@ function sort_data($a, $b) {
         <p>Гражданский мониторинг государственных финансов</p>
         
         </section>
+
+<?php     if ($check->fetchArray(SQLITE3_ASSOC)['count'] > 0) {
+	?>
+
 
 <h2><?php echo $title->fetchArray(SQLITE3_ASSOC)['title']; ?>: расходы бюджета</h2>
 <!--
@@ -105,10 +118,10 @@ function sort_data($a, $b) {
 <script>
     var data = <?php echo json_encode($data)?>;
 </script>
-
+<?php } else { echo "<pre>Неизвестный субъект.</pre>"; } ?>
    </main>
     <footer>
-        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016. Сделано в dataШколе сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
+        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016 dataШкола сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
     </footer>
         <script src="js/d3.v3.min.js" charset="utf-8"></script>
         <script src="js/data.js"></script>
