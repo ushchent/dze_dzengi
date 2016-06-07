@@ -18,7 +18,7 @@ $sql_popravki_total_count = 'SELECT count(*) as count from popravki where status
 				and region = 'Могилевская'
 				and code_2 = 0
 				group by title;";
-$sql_total_popravki_data = 'select title, sum(amount) as changed from (select title, amount from raskhody_f where (region = "Могилевская область" and status = "У2" and code_2 = 0) or (region = "Минская область" and status = "У2" and code_2 = 0) or (region = "Витебская область" and status = "У1" and code_2 = 0) or (region = "Брестская область" and status = "У1" and code_2 = 0) or (region = "Гродненская область" and status = "У1" and code_2 = 0) or (region = "Минск" and status = "У1" and code_2 = 0) or (region = "Гомельская область" and status = "У1" and code_2 = 0)) group by title;';
+$sql_total_popravki_data = 'select title, sum(amount) as changed from (select title, amount from raskhody_f where (region = "Могилевская область" and status = "У2" and code_2 = 0) or (region = "Минская область" and status = "У2" and code_2 = 0) or (region = "Витебская область" and status = "У2" and code_2 = 0) or (region = "Брестская область" and status = "У1" and code_2 = 0) or (region = "Гродненская область" and status = "У1" and code_2 = 0) or (region = "Минск" and status = "У1" and code_2 = 0) or (region = "Гомельская область" and status = "У1" and code_2 = 0)) group by title;';
 
 
 	$popravki_total_count = $db->query($sql_popravki_total_count);
@@ -123,6 +123,7 @@ usort($result_set, "sort_table");
 <body>
     <header>
         <img src="img/logo.jpg">
+<!--		<p>Журнал "Дзе дзеньгi"</p> -->
     </header>
     <main>
         <h1>Бюджетное обозрение Республики Беларусь</h1>

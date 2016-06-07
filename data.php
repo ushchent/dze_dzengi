@@ -12,7 +12,7 @@
     $sql_popravki_count = "select count(status) as count from popravki inner join area_titles on area_titles.area_title = popravki.region where id = $id and status <> 'П';";
     $sql_zaniato = "select amount from zaniato where area_id = $id order by year desc;";
     
-    // Запросы к текстовой таблице minsk. Замени потом на правильную.
+    // Запросы к тестовой таблице minsk. Замени потом на правильную.
     $sql_all = "select function as function_title, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where (status = 'П' or status = 'О') and Code_2 = 0 and area_id = $id order by year;";
     //$sql_all_otchety = 'select area_title, function, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where status = "О" and Code_2 = 0 and area_id = $id order by year;';
 
