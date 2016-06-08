@@ -18,7 +18,8 @@ $sql_popravki_total_count = 'SELECT count(*) as count from popravki where status
 				and region = 'Могилевская'
 				and code_2 = 0
 				group by title;";
-$sql_total_popravki_data = 'select title, sum(amount) as changed from (select title, amount from raskhody_f where (region = "Могилевская область" and status = "У2" and code_2 = 0) or (region = "Минская область" and status = "У2" and code_2 = 0) or (region = "Витебская область" and status = "У2" and code_2 = 0) or (region = "Брестская область" and status = "У1" and code_2 = 0) or (region = "Гродненская область" and status = "У1" and code_2 = 0) or (region = "Минск" and status = "У1" and code_2 = 0) or (region = "Гомельская область" and status = "У1" and code_2 = 0)) group by title;';
+	$sql_total_popravki_data = 'select title, sum(amount) as changed
+		from (select title, amount from raskhody_f where (region = "Могилевская область" and status = "У2" and code_2 = 0) or (region = "Минская область" and status = "У2" and code_2 = 0) or (region = "Витебская область" and status = "У2" and code_2 = 0) or (region = "Брестская область" and status = "У1" and code_2 = 0) or (region = "Гродненская область" and status = "У1" and code_2 = 0) or (region = "Минск" and status = "У1" and code_2 = 0) or (region = "Гомельская область" and status = "У1" and code_2 = 0)) group by title;';
 
 
 	$popravki_total_count = $db->query($sql_popravki_total_count);
@@ -26,12 +27,8 @@ $sql_total_popravki_data = 'select title, sum(amount) as changed from (select ti
 	$total_popravki = $db->query($sql_total_popravki);
 	$popravki_data = $db->query($sql_total_popravki_data);
 
-$region_names = $db->query($sql_region_names);
-$function_names = $db->query($sql_function_names);
-
-
-
-
+	$region_names = $db->query($sql_region_names);
+	$function_names = $db->query($sql_function_names);
 
 	$plan = $db->query($sql_plan);
 	$fact = $db->query($sql_fact);

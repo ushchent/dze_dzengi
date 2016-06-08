@@ -106,6 +106,7 @@ function sort_data($a, $b) {
 </aside>
 -->
 <div id="graph"></div>
+<p>Структура расходов бюджета в 2015 году:</p>
 <div id="table"></div>
 <?php 
     $data = [];

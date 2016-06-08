@@ -1,3 +1,4 @@
+
 var plan = data.filter(function(d) { return d.status == "П" && d.function_title == "Всего расходов" ; });
 var ispolneno = data.filter(function(d) { return d.status == "О" && d.function_title == "Всего расходов"; });
 
@@ -23,8 +24,20 @@ function get_data_by_year(year) {
 				continue;
 			}
 		}
+	
 	}
-	return response;
+console.log(response.length);
+for (var i = 0; i < response.length; i++) {
+	if (response[i][0] == "Всего расходов") {
+	var	total = response.splice(i, 1);
+}
+}
+console.log(response.length);
+response.sort(function(a, b) { return b[3] - a[3]; });
+response.push(total[0]);
+console.log(response.length);
+return response;
+
 }
 
 var formatter = d3.format(",.1f");
@@ -32,9 +45,12 @@ var formatter = d3.format(",.1f");
 var show_years = ispolneno.map(function(d) { return d.year; });
 
 var show_year = show_years[show_years.length - 1];
-console.log(show_year);
 
 var year_selection = get_data_by_year(show_year);
+console.log(year_selection);
+
+// year_selection.sort(function(a, b) { return b[3] - a[3]; });
+console.log(year_selection);
 
 var table = d3.select("#table")
 				.append("table");
@@ -186,9 +202,6 @@ target.selectAll("circle.plan")
 		fill: "#EB6A65",
 		title: function(d) { return d.amount; }
 	});   
-
-
-
 
 target.append("g")
 	.attr("class", "x axis")
