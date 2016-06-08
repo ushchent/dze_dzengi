@@ -333,9 +333,12 @@ request.onreadystatechange = function() {
 					link.setAttribute("href", "/data.php?id=" + data[i].id);
 					var link_text = document.createTextNode(data[i].region);
 					link.appendChild(link_text);
-					var plan = document.createTextNode(data[i].plan);
-					var changed = document.createTextNode(data[i].changed);
-					var percent = document.createTextNode(data[i].percent);
+					var plan =
+					document.createTextNode(addCommas(data[i].plan));
+					var changed =
+					document.createTextNode(addCommas(data[i].changed));
+					var percent =
+					document.createTextNode(addCommas(data[i].percent));
 					
 					var tempArr = [];
 					tempArr.push(link, plan, changed, percent);
