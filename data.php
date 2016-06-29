@@ -105,8 +105,17 @@ function sort_data($a, $b) {
 <p>Поправок в бюджет с начала года: <?php echo $popravki_count->fetchArray(SQLITE3_ASSOC)['count']; ?></p>
 </aside>
 -->
+<!--
+<nav id="main_menu">
+	<ul>
+		<li>Доходы</li>
+		<li>Расходы</li>
+		<li>Баланс</li>
+	</ul>
+</nav>
+-->
 <div id="graph"></div>
-<p>Структура расходов бюджета в 2015 году:</p>
+<h3>Структура расходов бюджета в <span id="current_year">2015</span> году:</h3>
 <div id="table"></div>
 <?php 
     $data = [];

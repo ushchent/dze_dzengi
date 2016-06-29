@@ -1,4 +1,3 @@
-
 var plan = data.filter(function(d) { return d.status == "П" && d.function_title == "Всего расходов" ; });
 var ispolneno = data.filter(function(d) { return d.status == "О" && d.function_title == "Всего расходов"; });
 
@@ -11,8 +10,6 @@ function get_data_by_year(year) {
 	var poplanu = data_for_year.filter(function(d) { return d.status == "П"; });
 	var pofaktu = data_for_year.filter(function(d) { return d.status == "О"; });
 
-	
-
 	for (var a = 0; a < poplanu.length; a++) {
 		for (var b = 0; b < pofaktu.length; b++) {
 			if (poplanu[a].function_title == pofaktu[b].function_title) {
@@ -24,19 +21,15 @@ function get_data_by_year(year) {
 				continue;
 			}
 		}
-	
 	}
-console.log(response.length);
-for (var i = 0; i < response.length; i++) {
-	if (response[i][0] == "Всего расходов") {
-	var	total = response.splice(i, 1);
-}
-}
-console.log(response.length);
-response.sort(function(a, b) { return b[3] - a[3]; });
-response.push(total[0]);
-console.log(response.length);
-return response;
+	for (var i = 0; i < response.length; i++) {
+		if (response[i][0] == "Всего расходов") {
+		var	total = response.splice(i, 1);
+	}
+	}
+	response.sort(function(a, b) { return b[3] - a[3]; });
+	response.push(total[0]);
+	return response;
 
 }
 
@@ -45,12 +38,10 @@ var formatter = d3.format(",.1f");
 var show_years = ispolneno.map(function(d) { return d.year; });
 
 var show_year = show_years[show_years.length - 1];
-
+d3.select("#current_year").text(show_year);
 var year_selection = get_data_by_year(show_year);
-console.log(year_selection);
 
 // year_selection.sort(function(a, b) { return b[3] - a[3]; });
-console.log(year_selection);
 
 var table = d3.select("#table")
 				.append("table");
@@ -77,7 +68,6 @@ trs.selectAll("td")
 	.data(function(d) { return get_values(d); })
 	.enter()
 	.append("td")
-	.append("text")
 	.text(function(d) { return (typeof(d) == "number") ? formatter(d) : d; });
 
 function get_values(d) {
@@ -91,12 +81,11 @@ return alist;
 }
 
 
-
 var target = d3.select("#graph")
 				.append("svg")
                 .attr({
-                   width: 800,
-                   height: 250 
+					width: 800,
+					height: 250
                 });
 var legend_data = ["По плану", "По факту"];
 
@@ -106,7 +95,7 @@ var color = d3.scale.ordinal()
 
 var legend = target.append("g")
 				.attr("transform", "translate(120, 10)");
-	legend.selectAll("circle")
+legend.selectAll("circle")
 				.data(legend_data)
 				.enter()
 				.append("circle")
@@ -128,7 +117,6 @@ var legend = target.append("g")
 		})
 		.text(function(d) { return d; });
 
-
 var x_scale = d3.scale.ordinal()
                 .domain(years)
                 .rangeRoundBands([0, 700]);
@@ -136,7 +124,7 @@ var y_scale = d3.scale.linear()
 				.domain([0, d3.max(plan, function(d) { return d.amount; })])
 				.range([240, 10]);
 
-var formatter = d3.format("g");
+var formatter = d3.format(",.1f");
 
 var x_axis = d3.svg.axis()
 				.scale(x_scale)
@@ -187,7 +175,7 @@ target.selectAll("circle.fact")
 		class: "fact",
 		fill: "#2A2F4E",
 		title: function(d) { return d.amount; }
-	});
+});
 
 
 target.selectAll("circle.plan")
@@ -201,14 +189,36 @@ target.selectAll("circle.plan")
 		class: "plan",
 		fill: "#EB6A65",
 		title: function(d) { return d.amount; }
-	});   
+});
 
 target.append("g")
 	.attr("class", "x axis")
 	.attr("transform", "translate(80, 230)")
 	.call(x_axis);
 
+var x_axis_years = d3.select(".x.axis").selectAll("text");
+
+for (var i = 0; i < x_axis_years[0].length; i++) {
+	if (x_axis_years[0][i].textContent == show_year) {
+		d3.select(x_axis_years[0][i]).classed("active", true);
+	}
+}
 target.append("g")
 	.attr("class", "y axis")
 	.attr("transform", "translate(80, -10)")
 	.call(y_axis);
+target.select(".x.axis")
+		.selectAll("g")
+		.on("click", function() {
+			var text = d3.select(this).select("text").text();
+			d3.select(".x.axis").selectAll("text").classed("active", false);
+			d3.select(this).select("text").classed("active", true);
+			d3.select("#current_year").text(text);
+			year_selection = get_data_by_year(text);
+			
+trs.data(year_selection);
+
+trs.selectAll("td")
+	.data(function(d) { return get_values(d); })
+	.text(function(d) { return (typeof(d) == "number") ? formatter(d) : d; });
+		});

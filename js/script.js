@@ -290,6 +290,7 @@ request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 200) {
               
               var data = JSON.parse(request.responseText);
+              console.log(data);
               
               if (document.getElementById("output_table")) {
                   document.getElementById("output_table").remove();

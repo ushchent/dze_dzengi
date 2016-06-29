@@ -24,6 +24,15 @@ aside {
 	padding: 5px;
 	float: right;
 }
+#main_menu ul li {
+	list-style: none;
+	display: inline;
+	padding: 3px 6px;
+	border: 1px solid black;
+}
+#main_menu {
+	margin-left: 3em;
+}
 .axis path, .axis line {
 	fill: none;
 	stroke: black;
@@ -105,6 +114,10 @@ table {
 	font-size: .8em;
 }
 
+tbody tr:nth-child(odd) {
+    background-color: #f4f4f4;
+    }
+
 thead {
 	font-weight: bold;
 }
@@ -112,3 +125,15 @@ table td {
 	border: 1px solid black;
 	padding: 5px;
 }
+
+.x.axis text:hover {
+	cursor: pointer;
+	}
+.active {
+		fill: #EB6A65;
+			text-decoration: underline;
+		}
+#current_year {
+		color: #EB6A65;
+			text-decoration: underline;
+		}
