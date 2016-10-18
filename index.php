@@ -135,7 +135,7 @@ usort($result_set, "sort_table");
         </div> 
         <div id="bsgu_dolg">
         </div>
-          <h3><a href="/data.php?id=2">Республиканский бюджет</a></h3>
+          <h3><a href="/budgety.by/data.php?id=2">Республиканский бюджет</a></h3>
         <div id="resp_rev">
         </div> 
         <div id="resp_spent">

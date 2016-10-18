@@ -95,6 +95,7 @@ function sort_data($a, $b) {
 
 
 <h2><?php echo $title->fetchArray(SQLITE3_ASSOC)['title']; ?>: расходы бюджета</h2>
+
 <!--
 <aside>
 <p>Население: <?php echo number_format($pop_count, $decimals = 1); ?></p>
