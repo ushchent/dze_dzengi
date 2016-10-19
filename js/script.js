@@ -331,7 +331,7 @@ request.onreadystatechange = function() {
 					var body_row = document.createElement("tr");
 					
 					var link = document.createElement("a");
-					link.setAttribute("href", "/data.php?id=" + data[i].id);
+					link.setAttribute("href", "/budgety.by/data.php?id=" + data[i].id);
 					var link_text = document.createTextNode(data[i].region);
 					link.appendChild(link_text);
 					var plan =
