@@ -1,76 +1,55 @@
 <?php
-	$db = new SQLite3("data/budgety.sqlite");
 
-$sql_popravki_total_count = 'SELECT count(*) as count from popravki where status != "П";';
+    
+    $db = new SQLite3("data/budgety.sqlite");
 
-	$sql_total_plan_data = 'select title, sum(amount) as plan, function_id  from raskhody_f inner join functions on functions.function = raskhody_f.title where status = "П" and code_2 = 0 group by title;';
-	
-	
-	$sql_total_popravki = "select distinct subject, status from popravki group by subject order by status;";
-	$sql_region_names = 'select distinct area_title as title, id from raskhody_f inner join area_titles on raskhody_f.region = area_titles.area_title;';
-	$sql_function_names = 'select distinct title, function_id from raskhody_f inner join functions on raskhody_f.title = functions.function;';
-	
-	
-	$sql_plan = "select title, amount as plan from raskhody_f where status = 'П' and region = 'Могилевская' and code_2 = 0;";
-	
-	$sql_fact = "select title, amount as fact from raskhody_f
-				where status = 'У2'
-				and region = 'Могилевская'
-				and code_2 = 0
-				group by title;";
-	$sql_total_popravki_data = 'select title, sum(amount) as changed
-		from (select title, amount from raskhody_f where (region = "Могилевская область" and status = "У2" and code_2 = 0) or (region = "Минская область" and status = "У2" and code_2 = 0) or (region = "Витебская область" and status = "У2" and code_2 = 0) or (region = "Брестская область" and status = "У1" and code_2 = 0) or (region = "Гродненская область" and status = "У1" and code_2 = 0) or (region = "Минск" and status = "У1" and code_2 = 0) or (region = "Гомельская область" and status = "У1" and code_2 = 0)) group by title;';
+	$sql_random_budget_title_declined = "SELECT area_title_declined, id from area_titles where area_titles.present = 1 order by random() limit 1;";
 
+	$random_budget_title_declined = $db->query($sql_random_budget_title_declined);
 
-	$popravki_total_count = $db->query($sql_popravki_total_count);
-	$total_plan_data = $db->query($sql_total_plan_data);
-	$total_popravki = $db->query($sql_total_popravki);
-	$popravki_data = $db->query($sql_total_popravki_data);
-
-	$region_names = $db->query($sql_region_names);
-	$function_names = $db->query($sql_function_names);
-
-	$plan = $db->query($sql_plan);
-	$fact = $db->query($sql_fact);
-
-
-
-	$result_set = array();
-	$row_array = array();
-
-	while($row = $total_plan_data->fetchArray(SQLITE3_ASSOC)) {
-		$row_array['title'] = $row["title"];
-		$row_array['plan'] = $row["plan"];
-		array_push($result_set, $row_array);
+	$keys = array();
+	while ($row = $random_budget_title_declined->fetchArray(SQLITE3_ASSOC)) {
+//		$temp_arr = array();
+		$keys["budget_id"] = $row["id"];
+		$keys["budget_title_declined"] = $row["area_title_declined"];
+//		array_push($temp_arr, )
 	}
 
-	$popravki_set = array();
-	while ($row = $popravki_data->fetchArray()) {
-		$temp_arr = array();
-		$temp_arr['title'] = $row['title'];
-		$temp_arr['changed'] = $row['changed'];
-		array_push($popravki_set, $temp_arr); 
-	}
+//	$random_budget_title = $random_budget_title_declined->fetchArray(SQLITE3_ASSOC)["area_title_declined"];
+//	$random_budget_title_id = $random_budget_title_declined->fetchArray(SQLITE3_ASSOC)["id"];
 
-	for ($i = 0; $i < count($result_set); $i++) {
-		for ($b = 0; $b < count($popravki_set); $b++) {
-			if ($result_set[$i]['title'] == $popravki_set[$b]['title']) {
-				$result_set[$i]['changed'] = $popravki_set[$b]['changed'];
-				$result_set[$i]["percent"] = 
-					($result_set[$i]['changed'] - $result_set[$i]['plan']) / 
-					$result_set[$i]['plan'] * 100;
-			}
-		}
-	}
+// echo "Код бюджета - " . $keys["budget_id"] . "<br>";
+// echo "Название бюджета - " . $keys["budget_title_declined"] . "<br>";
 
-function sort_table($a, $b) {
-	return $b['percent'] - $a['percent'];
+//    $sql_check = "select count(*) as count from area_titles where id = $id;";
+    
+
+//    $sql_get_population = "select amount from population where area_id = {$random_budget_title_declined_id} order by year desc;";
+//    $sql_popravki_count = "select count(status) as count from popravki inner join area_titles on area_titles.area_title = popravki.region where id = {$random_budget_title_declined_id} and status <> 'П';";
+//    $sql_zaniato = "select amount from zaniato where area_id = {$random_budget_title_declined_id} order by year desc;";
+    
+    // Запросы к тестовой таблице minsk. Замени потом на правильную.
+    $sql_all = "select function as function_title, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where (status = 'П' or status = 'О') and Code_2 = 0 and area_id = {$keys['budget_id']} order by year;";
+    //$sql_all_otchety = 'select area_title, function, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where status = "О" and Code_2 = 0 and area_id = $id order by year;';
+
+//    $check = $db->query($sql_check);
+
+    //$population = $db->query($sql_get_population);
+//    $popravki_count = $db->query($sql_popravki_count);
+    //$zaniato = $db->query($sql_zaniato);
+    
+    //$pop_count = $population->fetchArray(SQLITE3_ASSOC)['amount'];
+    //$zaniato_count = $zaniato->fetchArray(SQLITE3_ASSOC)['amount'];
+    //$zaniato_percent = $zaniato_count / $pop_count * 100;
+    
+    $all = $db->query($sql_all);
+
+
+
+function sort_data($a, $b) {
+	return $a['year'] - $b['year'];
 }
 
-usort($result_set, "sort_table");
-
-
-//$db->close();
 ?>
 <!doctype html>
 <html lang="ru">
@@ -119,100 +98,52 @@ usort($result_set, "sort_table");
     </head>
 <body>
     <header>
-        <img src="img/logo.jpg">
-<!--		<p>Журнал "Дзе дзеньгi"</p> -->
+        <a href="/budgety.by"><img src="img/logo.jpg"></a>
     </header>
     <main>
         <h1>Бюджетное обозрение Республики Беларусь</h1>
         <section id="caption">
-        <p>Гражданский мониторинг государственных финансов <sup>январь-март 2016</sup></p>
-        
-        </section>
-        <h2>Бюджет сектора государственного управления</h2>
-        <div id="bsgu_rev">
-        </div>
-        <div id="bsgu_spent">
-        </div> 
-        <div id="bsgu_dolg">
-        </div>
-          <h3><a href="/budgety.by/data.php?id=2">Республиканский бюджет</a></h3>
-        <div id="resp_rev">
-        </div> 
-        <div id="resp_spent">
-        </div> 
-        <h3>Местные бюджеты</h3>
-        <div id="loc_rev">
-        </div> 
-        <div id="loc_spent">
-        </div> 
-        <p>Расходы областных бюджетов в 2016 году (тыс. рублей):</p>
-        <div id="menu">
-
-<?php
-	echo "<select class='select' id='regions'>";
-	echo "<option value='default'>Все регионы</option>";
-
-
-
-	while ($row = $region_names->fetchArray()) {
-		echo "<option value=" . $row['id'] . ">" . $row['title'] . "</option>";
-	}
-echo "</select>";
-
-echo "<select class='select' id='functions'>";
-	echo "<option value='default'>Все виды расходов</option>";
-
-
-
-	while ($row = $function_names->fetchArray()) {
-		echo "<option value=" . $row['function_id'] . ">" . $row['title'] . "</option>";
-	}
-echo "</select>";
-?>
-
-
-<?php 
-
-echo "<table id='output_table'><thead><tr><td>Вид расходов</td><td>По плану</td><td>Уточнено</td><td>%</td></tr></thead><tbody>";
-for ($i = 0; $i < count($result_set); $i++) {
-	if ($result_set[$i]['title'] == "ВСЕГО расходов") {
-		$final_row = $result_set[$i];
-		continue;
-	}
-		echo "<tr>
-		<td>{$result_set[$i]['title']}</td>" .
-		"<td>" . number_format($result_set[$i]['plan']) . "</td>" .
-		"<td>" . number_format($result_set[$i]['changed']) . "</td>" .
-		"<td>" . number_format($result_set[$i]['percent'], $decimals = 1) .
-		"</td></tr>";
-
-	};
-	
-echo "<tr>
-		<td>{$final_row['title']}</td>" .
-		"<td>" . number_format($final_row['plan']) . "</td>" .
-		"<td>" . number_format($final_row['changed']) . "</td>" .
-		"<td>" . number_format($final_row['percent'], $decimals = 1) .
-		"</td></tr>";
-
-echo "</tbody></table>";
-?>
-</div>
-<p>С начала 2016 года поправки в областные бюджеты вносились <?php echo $popravki_total_count->fetchArray(SQLITE3_ASSOC)['count']?> раз.</p>
-        <section id="local">
+        <p>Гражданский мониторинг государственных финансов</p>
         </section>
 
+
+        <input id="budget_title" value="<?php echo $keys["budget_title_declined"]; ?>"
+			onkeyup="get_budget_title(this.value)">
 <!--
-        <h3>Бюджет Фонда социальной защиты населения</h3>
-        <section id="fszn">
-        </section>
+		<input type="button" id="show_button" value="Показать">
 -->
+		<div id="show_budget_title">
+			<ul></ul>
+		</div>
+		<p id="message"></p>
+
+
+
+
+
+
+
+<div id="graph"></div>
+<h3>Структура расходов бюджета в <span id="current_year">2015</span> году (млрд. рублей):</h3>
+<div id="table"></div>
+<?php 
+    $data = [];
+    while ($row = $all->fetchArray(SQLITE3_ASSOC)) {
+        array_push($data, $row);
+        //echo $row['function'] . " - " . $row['amount'] . " - " . $row['year']  . " - " . $row['status'] . "<br>";
+    };
+    usort($data, "sort_data");
+?>
+<script>
+    var data = <?php echo json_encode($data)?>;
+</script>
+
    </main>
     <footer>
         <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2016 dataШкола сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
     </footer>
         <script src="js/d3.v3.min.js" charset="utf-8"></script>
-        <script src="js/script.js"></script>
+        <script src="js/data.js"></script>
 </body>
 </html>
 <?php $db->close(); ?>

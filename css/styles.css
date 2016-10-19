@@ -137,3 +137,38 @@ table td {
 		color: #EB6A65;
 			text-decoration: underline;
 		}
+/* Для новой версии */
+
+#budget_title {
+font-size: 20px;
+	margin-top: 1em;
+    padding: 5px;
+	max-width: 800px;
+	width: 80%;
+}
+#show_button {
+	font-size: 20px;
+    padding: 5px;
+    border-width: 2px;
+    margin-left: .2%;
+    }
+#show_budget_title ul {
+    margin: 0.2em auto 0.2em 0;
+    padding-left: .3em;
+    width: 50%;
+}
+#show_budget_title ul li {
+    list-style: none;
+    margin-left: 0;
+    cursor: pointer;
+    padding: 2px;
+    font-size: 16px;
+}
+
+#show_budget_title li:hover {
+background-color: #CECECE;
+}
+
+.hidden {
+	display: none;
+}

@@ -1,3 +1,6 @@
+var message = d3.select("#message");
+var budget_code;
+
 var plan = data.filter(function(d) { return d.status == "П" && d.function_title == "Всего расходов" ; });
 var ispolneno = data.filter(function(d) { return d.status == "О" && d.function_title == "Всего расходов"; });
 
@@ -222,3 +225,65 @@ trs.selectAll("td")
 	.data(function(d) { return get_values(d); })
 	.text(function(d) { return (typeof(d) == "number") ? formatter(d) : d; });
 		});
+
+// Для одностраничной версии
+
+var fioField = d3.select("#budget_title");
+fioField.on("focus", function() {
+        if (this.value == "Введите название бюджета") {
+            this.value = "";
+        }
+    })
+    .on("blur", function() {
+        if (this.value == "") {
+            this.value = "Введите название бюджета";
+        }
+   });
+
+//draw_button.on("click", function() {
+	//d3.select("#show_fio").classed("hidden", true);
+	//d3.json("api.php?d=" + fioField.node().value, draw);
+	//});
+
+//d3.json("api.php?d=" + fio_selected, draw)
+
+
+
+
+function get_budget_title(str) {
+	var target = d3.select("#show_budget_title");
+
+	var list = target.select("ul");
+	
+	if (str.length <= 4 || str == "Введите название бюджета") {
+		target.classed("hidden", true);
+	} else if (str.length > 4) {
+		d3.json("api/?id=" + str,
+			function(data) {
+				if (data.length == 0) {
+					target.classed("hidden", true);
+					message.text("Запрос не найден.");
+				} else {
+					target.classed("hidden", false);
+					message.text("");				
+					var list_items = list.selectAll("li")
+											.data(data);
+					list_items.enter()
+						.append("li");
+					list_items.text(function(d) { return d.area_title_declined ; });
+					
+					target.selectAll("li")
+						.on("click", function() {
+							var budget_title_text = d3.select(this).text();
+							var budget_title_field = d3.select("#budget_title");
+							budget_title_field.node().value = budget_title_text;
+							budget_title_field.node().defaultValue = budget_title_text;
+							target.classed("hidden", true);
+						});
+					list_items.exit()
+						.remove();
+			}
+		});
+
+	}
+}
