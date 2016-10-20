@@ -98,7 +98,7 @@ function sort_data($a, $b) {
     </head>
 <body>
     <header>
-        <a href="/budgety.by"><img src="img/logo.jpg"></a>
+        <img src="img/logo.jpg">
     </header>
     <main>
         <h1>Бюджетное обозрение Республики Беларусь</h1>
