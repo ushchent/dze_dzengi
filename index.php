@@ -1,6 +1,4 @@
 <?php
-
-    
     $db = new SQLite3("data/budgety.sqlite");
 
 	$sql_random_budget_title_declined = "SELECT area_title_declined, id from area_titles where area_titles.present = 1 order by random() limit 1;";
@@ -29,7 +27,7 @@
 //    $sql_zaniato = "select amount from zaniato where area_id = {$random_budget_title_declined_id} order by year desc;";
     
     // Запросы к тестовой таблице minsk. Замени потом на правильную.
-    $sql_all = "select function as function_title, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where (status = 'П' or status = 'О') and Code_2 = 0 and area_id = {$keys['budget_id']} order by year;";
+    $sql_all = "select function as function_title, amount, year, status from minsk_1 inner join area_titles on minsk_1.area_id = area_titles.id where (status = 'П' or status = 'О') and Code_2 = 0 and area_id = {$keys['budget_id']} order by year;";
     //$sql_all_otchety = 'select area_title, function, amount, year, status from minsk inner join area_titles on minsk.area_id = area_titles.id where status = "О" and Code_2 = 0 and area_id = $id order by year;';
 
 //    $check = $db->query($sql_check);
@@ -49,6 +47,13 @@
 function sort_data($a, $b) {
 	return $a['year'] - $b['year'];
 }
+
+    $data = [];
+    while ($row = $all->fetchArray(SQLITE3_ASSOC)) {
+        array_push($data, $row);
+        //echo $row['function'] . " - " . $row['amount'] . " - " . $row['year']  . " - " . $row['status'] . "<br>";
+    };
+    usort($data, "sort_data");
 
 ?>
 <!doctype html>
@@ -117,22 +122,11 @@ function sort_data($a, $b) {
 		</div>
 		<p id="message"></p>
 
-
-
-
-
-
-
 <div id="graph"></div>
 <h3>Структура расходов бюджета в <span id="current_year">2015</span> году (млрд. рублей):</h3>
 <div id="table"></div>
 <?php 
-    $data = [];
-    while ($row = $all->fetchArray(SQLITE3_ASSOC)) {
-        array_push($data, $row);
-        //echo $row['function'] . " - " . $row['amount'] . " - " . $row['year']  . " - " . $row['status'] . "<br>";
-    };
-    usort($data, "sort_data");
+
 ?>
 <script>
     var data = <?php echo json_encode($data)?>;

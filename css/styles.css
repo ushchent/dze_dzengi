@@ -140,7 +140,8 @@ table td {
 /* Для новой версии */
 
 #budget_title {
-font-size: 20px;
+	position: relative;
+	font-size: 20px;
 	margin-top: 1em;
     padding: 5px;
 	max-width: 800px;
@@ -153,6 +154,8 @@ font-size: 20px;
     margin-left: .2%;
     }
 #show_budget_title ul {
+	position: absolute;
+	background-color: white;
     margin: 0.2em auto 0.2em 0;
     padding-left: .3em;
     width: 50%;
