@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Бюджетное обозрение Республики Беларусь</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Бюджетное обозрение Республики
+        Беларусь. Гражданский мониторинг государственных финансов. ">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+	if (document.location.hostname != "localhost") {
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter30802536 = new Ya.Metrika({
+                    id:30802536,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+} else {
+	console.log("You're on localhost.");
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/30802536" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+    </head>
+<body>
+    <header>
+        <img src="img/logo.jpg">
+    </header>
+    <main>
+        <h1>Бюджетное обозрение Республики Беларусь</h1>
+        <section id="caption">
+        <p>Гражданский мониторинг государственных финансов</p>
+        </section>
+        <input id="budget_title" value=""
+			onkeyup="get_budget_title(this.value)">
+		<div id="show_budget_title">
+			<ul></ul>
+		</div>
+		<p id="message"></p>
+<div id="graph"></div>
+<h3>Структура расходов бюджета в <span id="current_year">2015</span> году (млрд. рублей):</h3>
+<div id="table"></div>
+<script>
+</script>
+   </main>
+    <footer>
+        <div id="cc"><a href="http://creativecommons.org/licenses/by-sa/4.0/deed.be"><img src="img/bysa.png"></a><p>2015 &ndash; 2017 dataШкола сообщества "<a href="http://opendata.by">Открытые данные для Беларуси</a>". Испытательная версия.</p></div>
+    </footer>
+        <script src="js/d3.v4.min.js" charset="utf-8"></script>
+        <script src="js/d3-selection-multi.v1.min.js"></script>
+		<script src="js/d3-scale.v1.min.js"></script>
+        <script src="js/script.js"></script>
+</body>
+</html>
