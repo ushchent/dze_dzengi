@@ -500,3 +500,4 @@ trs.selectAll("td")
 
 //var ispolneno = data.filter(function(d) { return d.status == "О" && d.function_title == "Всего расходов"; });
 
+
